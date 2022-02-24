@@ -3,8 +3,10 @@ package frc.robot;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 @SuppressWarnings("ALL")
 public class DrivingCode extends TimedRobot {
@@ -14,13 +16,13 @@ public class DrivingCode extends TimedRobot {
 
   public static final XboxController xboxController = new XboxController(0);
 
-  final SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
+  final MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
 
   final Spark m_frontRight = new Spark(3);
   final Spark m_rearRight = new Spark(2);
-  final SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
+  final MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
   
-  static final DoubleSolenoid exampleSolenoid = new DoubleSolenoid(0, 1);
+  //static final DoubleSolenoid exampleSolenoid = new DoubleSolenoid(0, 1);
 
   private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_left, m_right);
   public static final Joystick m_stick = new Joystick(0);
@@ -40,7 +42,7 @@ cam0.setFPS(20);
 
   }
   public void update() {
-    Scheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
     m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
   
