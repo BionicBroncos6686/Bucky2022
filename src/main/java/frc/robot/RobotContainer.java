@@ -11,6 +11,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
+public class RobotContainer {
+    
+}
+
+
 @SuppressWarnings("ALL")
 public class DrivingCode extends TimedRobot {
 
