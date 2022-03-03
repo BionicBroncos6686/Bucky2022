@@ -1,16 +1,16 @@
 package frc.robot;
 
-import edu.wpi.first.cscore.UsbCamera;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.Constants.Drivetrain;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.Shooter;
 import frc.robot.commands.DrivetrainCommand;
+import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.commands.DrivetrainCommand;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class RobotContainer {
   //defining controllers
@@ -23,19 +23,25 @@ public class RobotContainer {
 
   //define subsystems
   private DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+  private ShooterSubsystem shooter = new ShooterSubsystem();
+
+  private static final JoystickButton lowSpeedShoot = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
+  private static final JoystickButton highSpeedShoot = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
 
   //set default commands for subsystems and stuff
   public RobotContainer() {
     drivetrain.setDefaultCommand(new DrivetrainCommand(drivetrain, throttle, turn));
+
+    configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-      //THIS IS WHERE WE WILL BIND BUTTONS WITH COMMANDS
+      highSpeedShoot.whenPressed(new ShooterCommand(shooter, () -> Shooter.HIGH_SPEED_SHOOT));
+      lowSpeedShoot.whenPressed(new ShooterCommand(shooter, () -> Shooter.LOW_SPEED_SHOOT));
   }
 
   //default wpi library for running autos
   public Command getAutonomousCommand() {
     return null;
   }
-
 }
