@@ -8,12 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; //this isn't being used right now, but it's really helpful for debugging.
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,86 +21,50 @@ import frc.robot.subsystems.ExampleSubsystem;
  */
 @SuppressWarnings("HungarianNotationMemberVariables")
 public class Robot extends TimedRobot {
-  public static final ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  protected static OI m_oi;
-
-  Command m_autonomousCommand;
-  final SendableChooser<Command> m_chooser = new SendableChooser<>();
   
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
+  private RobotContainer robotContainer;
+  private Command m_autonomousCommand;
+
+  //this is where you run any initialization (teleop and auto)
   @Override
   public void robotInit() {
-    m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    robotContainer = new RobotContainer();
   }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
-   **/
+  //this robot periodic runs once per scheduler run, but it's best not to use this to create functionality, because it's just asking for problems to do so
   @Override
   public void robotPeriodic() {
+    //the most important thing that happens here is that we refresh the commandscheduler, allowing commands to execute
+    CommandScheduler.getInstance().run();
   }
 
-  /**
-   * This function is called once each time the robot enters Disabled mode.
-   * You can use it to reset any subsystem information you want to clear when
-   * the robot is disabled.
-   */
+  //This is called as soon as you enter disabled mode.
   @Override
-  public void disabledInit() {
-  }
+  public void disabledInit() {}
 
+  //I have no idea when you would use the one below. We've always just left it alone.
   @Override
-  public void disabledPeriodic() {
-    Scheduler.getInstance().run();
-  }
+  public void disabledPeriodic() {}
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString code to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons
-   * to the switch structure below with additional strings & commands.
-   */
+  //this runs the selected auto. you can add other stuff to happen when auto is initalized here.
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
+    m_autonomousCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+      m_autonomousCommand.schedule();
     }
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
+  //this method is called once per scheduler run during the autonomous periodic.
+  //this is an acceptable place to put gyro corrections and stuff like that, although it's even better if use commands to do so.
   @Override
   public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
+
   }
 
+  //This runs when you initialize teleop. By default, autonomous gets interrupted, but you can comment out the preexisting code if you want it to continue
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
@@ -115,18 +76,23 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
+  //this method is called ever scheduler run during periodic. Putting stuff in here is more acceptable than in robotPeriodic, but still discouraged.
+  //As for why it's discouraged, idk. Beats me.
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
+  //runs at initiliazation during test mode
+  @Override
+  public void testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll();
+  }
+
+  //the stuff you put in testPeriodic runs when you choose test mode in driverstation
   @Override
   public void testPeriodic() {
+
   }
+
 }
