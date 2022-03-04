@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 import frc.robot.Constants.Drivetrain;
-import frc.robot.Constants.Shooter;;
+
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */

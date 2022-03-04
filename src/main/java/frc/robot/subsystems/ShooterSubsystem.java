@@ -11,7 +11,6 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import frc.robot.Constants.Shooter;
 
 public class ShooterSubsystem extends SubsystemBase {

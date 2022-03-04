@@ -7,6 +7,7 @@ public class Constants {
         public final static int RIGHT_FOLLOWER_PORT = 2;
         public final static int LEFT_FOLLOWER_PORT = 0;
     }
+
     public final static class Shooter {
         public final static int SHOOTER_PORT = 4;
         public final static double HIGH_SPEED_SHOOT = 1;

@@ -21,32 +21,38 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 @SuppressWarnings("HungarianNotationMemberVariables")
 public class Robot extends TimedRobot {
-  
+
   private RobotContainer robotContainer;
   private Command m_autonomousCommand;
 
-  //this is where you run any initialization (teleop and auto)
+  // this is where you run any initialization (teleop and auto)
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
   }
 
-  //this robot periodic runs once per scheduler run, but it's best not to use this to create functionality, because it's just asking for problems to do so
+  // this robot periodic runs once per scheduler run, but it's best not to use
+  // this to create functionality, because it's just asking for problems to do so
   @Override
   public void robotPeriodic() {
-    //the most important thing that happens here is that we refresh the commandscheduler, allowing commands to execute
+    // the most important thing that happens here is that we refresh the
+    // commandscheduler, allowing commands to execute
     CommandScheduler.getInstance().run();
   }
 
-  //This is called as soon as you enter disabled mode.
+  // This is called as soon as you enter disabled mode.
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
-  //I have no idea when you would use the one below. We've always just left it alone.
+  // I have no idea when you would use the one below. We've always just left it
+  // alone.
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
-  //this runs the selected auto. you can add other stuff to happen when auto is initalized here.
+  // this runs the selected auto. you can add other stuff to happen when auto is
+  // initalized here.
   @Override
   public void autonomousInit() {
     m_autonomousCommand = robotContainer.getAutonomousCommand();
@@ -57,14 +63,17 @@ public class Robot extends TimedRobot {
     }
   }
 
-  //this method is called once per scheduler run during the autonomous periodic.
-  //this is an acceptable place to put gyro corrections and stuff like that, although it's even better if use commands to do so.
+  // this method is called once per scheduler run during the autonomous periodic.
+  // this is an acceptable place to put gyro corrections and stuff like that,
+  // although it's even better if use commands to do so.
   @Override
   public void autonomousPeriodic() {
 
   }
 
-  //This runs when you initialize teleop. By default, autonomous gets interrupted, but you can comment out the preexisting code if you want it to continue
+  // This runs when you initialize teleop. By default, autonomous gets
+  // interrupted, but you can comment out the preexisting code if you want it to
+  // continue
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
@@ -76,20 +85,22 @@ public class Robot extends TimedRobot {
     }
   }
 
-  //this method is called ever scheduler run during periodic. Putting stuff in here is more acceptable than in robotPeriodic, but still discouraged.
-  //As for why it's discouraged, idk. Beats me.
+  // this method is called ever scheduler run during periodic. Putting stuff in
+  // here is more acceptable than in robotPeriodic, but still discouraged.
+  // As for why it's discouraged, idk. Beats me.
   @Override
   public void teleopPeriodic() {
   }
 
-  //runs at initiliazation during test mode
+  // runs at initiliazation during test mode
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
 
-  //the stuff you put in testPeriodic runs when you choose test mode in driverstation
+  // the stuff you put in testPeriodic runs when you choose test mode in
+  // driverstation
   @Override
   public void testPeriodic() {
 

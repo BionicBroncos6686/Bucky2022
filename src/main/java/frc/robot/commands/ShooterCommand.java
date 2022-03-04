@@ -3,12 +3,11 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+
   private final ShooterSubsystem shooter;
   private DoubleSupplier speed;
 
@@ -20,7 +19,7 @@ public class ShooterCommand extends CommandBase {
   public ShooterCommand(ShooterSubsystem shooter, DoubleSupplier speed) {
     this.shooter = shooter;
     this.speed = speed;
-    
+
     addRequirements(shooter);
   }
 
@@ -32,6 +31,6 @@ public class ShooterCommand extends CommandBase {
 
   // @Override
   // public void end(boolean interrupted) {
-  //   shooter.shoot(() -> 0);
+  // shooter.shoot(() -> 0);
   // }
 }
