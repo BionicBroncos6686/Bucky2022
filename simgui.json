@@ -8,5 +8,10 @@
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Spark[4]": "Motor Controller"
     }
+  },
+  "NetworkTables": {
+    "LiveWindow": {
+      "open": true
+    }
   }
 }

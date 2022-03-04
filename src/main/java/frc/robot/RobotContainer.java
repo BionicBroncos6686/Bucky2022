@@ -4,8 +4,10 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.Shooter;
+import frc.robot.commands.DriveTime;
 import frc.robot.commands.DrivetrainCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -22,6 +24,7 @@ public class RobotContainer {
   private DoubleSupplier turn = () -> driverController.getRightX();
 
   // define subsystems
+
   private DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
   private ShooterSubsystem shooter = new ShooterSubsystem();
 
@@ -41,10 +44,18 @@ public class RobotContainer {
   private void configureButtonBindings() {
     highSpeedShoot.whileHeld(new ShooterCommand(shooter, () -> Shooter.HIGH_SPEED_SHOOT));
     lowSpeedShoot.whileHeld(new ShooterCommand(shooter, () -> Shooter.LOW_SPEED_SHOOT));
+
   }
 
   // default wpi library for running autos
   public Command getAutonomousCommand() {
-    return null;
+    return m_simpleAuto;
   }
+
+  // A simple auto routine that drives forward a specified distance, and then
+  // stops.
+  private final Command m_simpleAuto = new SequentialCommandGroup(
+      new ShooterCommand(shooter, () -> Shooter.AUTO_SHOOT).withTimeout(3),
+      new ShooterCommand(shooter, () -> 0).withTimeout(0.1),
+      new DriveTime(drivetrain, -1).withTimeout(3));
 }
