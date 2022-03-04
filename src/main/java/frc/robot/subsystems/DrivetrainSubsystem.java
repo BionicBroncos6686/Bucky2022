@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
-import frc.robot.Constants.Drivetrain;;
+import frc.robot.Constants.Drivetrain;
+import frc.robot.Constants.Shooter;;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
@@ -37,8 +38,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   //constructor. set inversions, neutral modes, and set followers to follow master motors
   //MUST SET INVERSIONS AFTER TESTING THEM
   public DrivetrainSubsystem() {
-    rightMasterMotor  .setInverted(false);
-    rightFollowerMotor.setInverted(false);
+    rightMasterMotor  .setInverted(true);
+    rightFollowerMotor.setInverted(true);
     leftMasterMotor   .setInverted(false);
     leftFollowerMotor .setInverted(false);
 
@@ -51,6 +52,4 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void drive(DoubleSupplier throttle, DoubleSupplier turn) {
     drive.arcadeDrive(throttle.getAsDouble(), turn.getAsDouble());
   }
-
-
 }

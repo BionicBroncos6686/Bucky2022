@@ -18,6 +18,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private final Spark shooterMotor = new Spark(Shooter.SHOOTER_PORT);
 
   public ShooterSubsystem() {
+    shooterMotor.setInverted(false);
   }
 
   public void shoot(DoubleSupplier speed) {

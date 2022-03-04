@@ -29,4 +29,9 @@ public class ShooterCommand extends CommandBase {
   public void execute() {
     shooter.shoot(speed);
   }
+
+  // @Override
+  // public void end(boolean interrupted) {
+  //   shooter.shoot(() -> 0);
+  // }
 }
